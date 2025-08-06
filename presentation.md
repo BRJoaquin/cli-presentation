@@ -67,6 +67,7 @@ cowsay -f dragon "La terminal no es el pasado, es el presente más eficiente"
 
 > No necesitas recordar comandos exactos
 > Usar alias y atajos para casos específicos
+> ⚠️Tip: veremos otras formas de buscar y crear comandos.
 
 ### 3. **Curva de aprendizaje** 📈
 
@@ -90,10 +91,6 @@ cowsay -f dragon "La terminal no es el pasado, es el presente más eficiente"
 ### **Multiplexación** 🪟
 
 - `tmux` - Gestión de sesiones y ventanas
-
-### **Procesamiento de datos** 🔧
-
-- `jq` - Manipulación de JSON
 
 ### **Control de versiones** 🌿
 
@@ -146,7 +143,7 @@ z abc  # ¡Te lleva directo!
 
 ## Reemplazando cd completamente
 
-### En tu `.zshrc`:
+### En tu `.zshrc`
 
 ```bash
 # Añadir al final del archivo
@@ -155,9 +152,12 @@ eval "$(zoxide init zsh)"
 # Esto habilita:
 # - z: para saltar a directorios
 # - zi: selección interactiva con fzf
+
+# Si quieres reemplazar cd por z:
+alias cd="z"
 ```
 
-### Para bash, fish, etc:
+### Para bash, fish, etc
 
 ```bash
 eval "$(zoxide init bash)"  # .bashrc
@@ -184,3 +184,163 @@ z client api  # → /home/user/work/client-xyz/api-backend
 > **Pro tip**: No importa dónde estés, con recordar parcialmente el nombre es suficiente
 
 ---
+
+## eza - El ls moderno 🎨
+
+### ¿Qué es eza?
+
+Un **reemplazo moderno para ls** escrito en Rust
+
+```bash
+# En lugar de esto:
+ls -la
+
+# Obtienes esto:
+eza -la --icons --git
+# → Iconos, colores, estado de git, y más información útil
+```
+
+---
+
+## Formas de visualización en eza
+
+### Las 3 vistas principales 📋
+
+```bash
+# Lista detallada (más común)
+eza -l --icons
+
+# Vista de árbol (explorar estructura)
+eza --tree --level=2 --icons
+
+# Vista de grilla (aprovechar ancho de terminal)
+eza --grid --icons
+```
+
+### Banderas esenciales 🏁
+
+```bash
+--git          # Estado de archivos en git (M, N, ?)
+--header       # Encabezados de columnas
+--icons        # Iconos por tipo de archivo
+-a             # Archivos ocultos
+--group-directories-first  # Carpetas primero
+```
+
+---
+
+## Combinaciones poderosas y aliases
+
+### Combos útiles para desarrollo 💪
+
+```bash
+# Vista completa de proyecto
+eza -la --icons --git --header --group-directories-first
+
+# Árbol ignorando node_modules
+eza --tree --git-ignore --level=3 --icons
+
+# Archivos modificados recientemente
+eza -la --sort=modified --reverse --time-style=relative
+```
+
+### Mis aliases favoritos 🌟
+
+```bash
+# Reemplazo directo de ls
+alias ls='eza -a --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions'
+
+# Lista detallada con git
+alias ll='eza -la --icons --git --header --time-style=relative'
+
+# Árbol de proyecto
+alias lt='eza --tree --level=3 --icons --git-ignore'
+```
+
+---
+
+## yazi - Explorador de archivos moderno 📁
+
+### ¿Qué es yazi?
+
+Un **explorador de archivos en terminal** ultra rápido escrito en Rust
+
+```bash
+# En lugar de hacer esto:
+cd src/components
+ls -la
+cd Header
+nvim index.js
+
+# Navegas visualmente:
+yazi
+# → Preview instantáneo, navegación vim-like, operaciones asíncronas
+```
+
+---
+
+## Navegación estilo Vim en yazi
+
+### Movimientos básicos 🎮
+
+```bash
+# Navegación principal
+j/k         # Abajo/arriba
+h/l         # Salir/entrar carpetas
+gg/G        # Inicio/final de lista
+
+# Scroll en preview
+J/K         # Scroll abajo/arriba en panel de preview
+```
+
+### Búsqueda y saltos rápidos ⚡
+
+```bash
+/           # Buscar en directorio actual
+n/N         # Siguiente/anterior resultado
+.           # Toggle archivos ocultos
+```
+
+---
+
+## Operaciones de archivos en yazi
+
+### Selección y manipulación 🔧
+
+```bash
+# Selección
+<Space>     # Seleccionar/deseleccionar
+v           # Modo visual (como Vim)
+
+# Operaciones
+y           # Copiar (yank)
+x           # Cortar
+p           # Pegar
+d           # Eliminar
+r           # Renombrar
+```
+
+### Features que cambian el juego 🚀
+
+- **Preview en tiempo real** - Imágenes, código, PDFs sin abrir nada
+- **Operaciones asíncronas** - Copia archivos grandes sin bloquear
+- **Integración nativa** - zoxide, fzf, ripgrep ya integrados
+
+---
+
+## Búsquedas inteligentes en yazi 🔍
+
+### Las 3 teclas mágicas
+
+```bash
+z           # zoxide - Saltar a directorios visitados
+            # Ejemplo: z proj → ~/Documents/projects/website
+
+s           # fd - Buscar archivos por nombre
+            # Ejemplo: s config → encuentra config.json, config.yaml
+
+S           # ripgrep - Buscar contenido dentro de archivos
+            # Ejemplo: S TODO → archivos que contienen "TODO"
+---
+
+```
