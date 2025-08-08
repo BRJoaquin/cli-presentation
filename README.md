@@ -23,7 +23,22 @@ This repository contains a comprehensive presentation showcasing modern CLI tool
 
 ## Usage
 
-To view this presentation, you'll need a terminal-based markdown presentation tool that supports custom themes. The presentation is optimized for terminal display with:
+To view this presentation, you'll need [slides](https://github.com/maaslalani/slides) - a terminal-based markdown presentation tool that supports custom themes.
+
+### Installation
+
+```bash
+# Install slides
+go install github.com/maaslalani/slides@latest
+```
+
+### Running the presentation
+
+```bash
+slides presentation.md
+```
+
+The presentation is optimized for terminal display with:
 - ASCII art headers
 - Color-coded sections
 - Code examples
